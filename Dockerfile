@@ -1,8 +1,10 @@
-FROM httpd:latest
-LABEL Owner 'Sada'
+FROM node:18-alpine
 
-COPY ["package.json", "package-lock.json", "./"]
-RUN cd /src && npm install
-COPY . .
-EXPOSE 3000
-CMD [ "npm", "start" ]
+WORKDIR /my-projects/
+COPY public/ /my-projects/public
+COPY src/ /my-projects/src
+COPY package.json /my-projects/
+RUN npm install
+
+CMD ["npm", "start"]
+
